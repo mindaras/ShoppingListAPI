@@ -1,0 +1,36 @@
+{
+  "name": "shoppinglistapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"nodemon\" \"yarn gentypes:watch\"",
+    "start:test": "ts-node -r tsconfig-paths/register src/index.ts",
+    "start:prod": "yarn run build && NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
+    "build": "rimraf dist && tsc",
+    "gentypes": "graphql-codegen --config codegen.yml",
+    "gentypes:watch": "yarn gentypes --watch"
+  },
+  "author": "Mindaugas Lazauskas",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.16.3",
+    "@graphql-codegen/introspection": "1.16.3",
+    "@graphql-codegen/typescript": "1.16.3",
+    "@graphql-codegen/typescript-resolvers": "1.16.3",
+    "@types/mongoose": "^5.7.30",
+    "@types/node": "^14.0.14",
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "apollo-server": "^2.15.1",
+    "graphql": "^15.3.0",
+    "mongoose": "^5.9.22"
+  }
+}

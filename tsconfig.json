@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@db": ["src/db"],
+      "@generated/*": ["src/generated/*"],
+      "@models/*": ["src/models/*"],
+      "@common/*": ["src/common/*"],
+      "@domain/*": ["src/domain/*"]
+    }
+  }
+}
