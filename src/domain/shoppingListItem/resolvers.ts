@@ -10,8 +10,22 @@ const Query: QueryResolvers = {
 };
 
 const Mutation: MutationResolvers = {
-  shoppingListItem: (_, { input }, { shoppingListItemHandlers }) => {
-    return shoppingListItemHandlers.create(input);
+  createShoppingListItem: (
+    _,
+    { listId, author, input },
+    { shoppingListItemHandlers }
+  ) => {
+    return shoppingListItemHandlers.create(listId, author, input);
+  },
+  updateShoppingListItem: (
+    _,
+    { id, updatedBy, input },
+    { shoppingListItemHandlers }
+  ) => {
+    return shoppingListItemHandlers.update(id, updatedBy, input);
+  },
+  removeShoppingListItem: (_, { id, listId }, { shoppingListItemHandlers }) => {
+    return shoppingListItemHandlers.remove(id, listId);
   },
 };
 

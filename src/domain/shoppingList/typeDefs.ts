@@ -7,8 +7,13 @@ const typeDefs = gql`
     items: [ShoppingListItem]!
   }
 
+  extend type Query {
+    shoppingList(id: ID!): ShoppingList!
+  }
+
   extend type Mutation {
-    shoppingList(name: String!): ShoppingList!
+    createShoppingList(name: String!): ShoppingList!
+    removeShoppingList(id: ID!): Int
   }
 `;
 

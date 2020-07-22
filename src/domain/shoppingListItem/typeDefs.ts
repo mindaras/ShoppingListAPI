@@ -19,13 +19,9 @@ const typeDefs = gql`
   }
 
   input ShoppingListItemInput {
-    id: ID
-    listId: ID!
     name: String!
     info: String
-    author: String!
     status: ShoppingListItemStatus
-    updatedBy: String
   }
 
   extend type Query {
@@ -34,7 +30,17 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    shoppingListItem(input: ShoppingListItemInput!): ShoppingListItem!
+    createShoppingListItem(
+      listId: ID!
+      author: String!
+      input: ShoppingListItemInput!
+    ): ShoppingListItem!
+    updateShoppingListItem(
+      id: ID!
+      updatedBy: String!
+      input: ShoppingListItemInput!
+    ): ShoppingListItem!
+    removeShoppingListItem(id: ID!, listId: ID!): Int
   }
 `;
 

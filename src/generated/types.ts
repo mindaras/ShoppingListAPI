@@ -19,19 +19,64 @@ export type ShoppingList = {
   items: Array<Maybe<ShoppingListItem>>;
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
+export type Query = {
+  __typename?: 'Query';
   shoppingList: ShoppingList;
   shoppingListItem: ShoppingListItem;
+  shoppingListItems: Array<Maybe<ShoppingListItem>>;
 };
 
 
-export type MutationShoppingListArgs = {
+export type QueryShoppingListArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryShoppingListItemArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryShoppingListItemsArgs = {
+  listId: Scalars['ID'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createShoppingList: ShoppingList;
+  createShoppingListItem: ShoppingListItem;
+  removeShoppingList?: Maybe<Scalars['Int']>;
+  removeShoppingListItem?: Maybe<Scalars['Int']>;
+  updateShoppingListItem: ShoppingListItem;
+};
+
+
+export type MutationCreateShoppingListArgs = {
   name: Scalars['String'];
 };
 
 
-export type MutationShoppingListItemArgs = {
+export type MutationCreateShoppingListItemArgs = {
+  listId: Scalars['ID'];
+  author: Scalars['String'];
+  input: ShoppingListItemInput;
+};
+
+
+export type MutationRemoveShoppingListArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationRemoveShoppingListItemArgs = {
+  id: Scalars['ID'];
+  listId: Scalars['ID'];
+};
+
+
+export type MutationUpdateShoppingListItemArgs = {
+  id: Scalars['ID'];
+  updatedBy: Scalars['String'];
   input: ShoppingListItemInput;
 };
 
@@ -54,29 +99,9 @@ export type ShoppingListItem = {
 };
 
 export type ShoppingListItemInput = {
-  id?: Maybe<Scalars['ID']>;
-  listId: Scalars['ID'];
   name: Scalars['String'];
   info?: Maybe<Scalars['String']>;
-  author: Scalars['String'];
   status?: Maybe<ShoppingListItemStatus>;
-  updatedBy?: Maybe<Scalars['String']>;
-};
-
-export type Query = {
-  __typename?: 'Query';
-  shoppingListItem: ShoppingListItem;
-  shoppingListItems: Array<Maybe<ShoppingListItem>>;
-};
-
-
-export type QueryShoppingListItemArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryShoppingListItemsArgs = {
-  listId: Scalars['ID'];
 };
 
 
@@ -160,11 +185,12 @@ export type ResolversTypes = {
   ShoppingList: ResolverTypeWrapper<ShoppingList>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   ShoppingListItemStatus: ShoppingListItemStatus;
   ShoppingListItem: ResolverTypeWrapper<ShoppingListItem>;
   ShoppingListItemInput: ShoppingListItemInput;
-  Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -173,10 +199,11 @@ export type ResolversParentTypes = {
   ShoppingList: ShoppingList;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Query: {};
   Mutation: {};
+  Int: Scalars['Int'];
   ShoppingListItem: ShoppingListItem;
   ShoppingListItemInput: ShoppingListItemInput;
-  Query: {};
   Boolean: Scalars['Boolean'];
 };
 
@@ -187,9 +214,18 @@ export type ShoppingListResolvers<ContextType = Context, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  shoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<QueryShoppingListArgs, 'id'>>;
+  shoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<QueryShoppingListItemArgs, 'id'>>;
+  shoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryShoppingListItemsArgs, 'listId'>>;
+};
+
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  shoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<MutationShoppingListArgs, 'name'>>;
-  shoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<MutationShoppingListItemArgs, 'input'>>;
+  createShoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<MutationCreateShoppingListArgs, 'name'>>;
+  createShoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<MutationCreateShoppingListItemArgs, 'listId' | 'author' | 'input'>>;
+  removeShoppingList?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationRemoveShoppingListArgs, 'id'>>;
+  removeShoppingListItem?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationRemoveShoppingListItemArgs, 'id' | 'listId'>>;
+  updateShoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<MutationUpdateShoppingListItemArgs, 'id' | 'updatedBy' | 'input'>>;
 };
 
 export type ShoppingListItemResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ShoppingListItem'] = ResolversParentTypes['ShoppingListItem']> = {
@@ -204,16 +240,11 @@ export type ShoppingListItemResolvers<ContextType = Context, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  shoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<QueryShoppingListItemArgs, 'id'>>;
-  shoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryShoppingListItemsArgs, 'listId'>>;
-};
-
 export type Resolvers<ContextType = Context> = {
   ShoppingList?: ShoppingListResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   ShoppingListItem?: ShoppingListItemResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
 };
 
 

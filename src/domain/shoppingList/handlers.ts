@@ -2,9 +2,17 @@ import { db } from "@db";
 
 const create = (name: string) => db.shoppingList.create({ name } as any);
 
-const get = async (id: string) => {
-  const document = await db.shoppingList.findById(id);
-  return document?.toJSON();
+const get = (id: string) => {
+  return db.shoppingList.findById(id).lean().exec() as any;
 };
 
-export const shoppingListHandlers = { create, get };
+const remove = async (id: string) => {
+  await db.shoppingList.findByIdAndRemove(id, {
+    useFindAndModify: false,
+  } as any);
+  await db.shoppingListItem.deleteMany({ list: id } as any);
+
+  return null;
+};
+
+export const shoppingListHandlers = { create, get, remove };
