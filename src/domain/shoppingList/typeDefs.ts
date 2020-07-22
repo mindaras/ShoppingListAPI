@@ -5,6 +5,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     items: [ShoppingListItem]!
+    updatedAt: String
   }
 
   extend type Query {

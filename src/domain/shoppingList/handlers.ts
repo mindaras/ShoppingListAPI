@@ -1,4 +1,5 @@
 import { db } from "@db";
+import { TypeMetaFieldDef } from "graphql";
 
 const create = (name: string) => db.shoppingList.create({ name } as any);
 

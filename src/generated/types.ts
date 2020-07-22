@@ -17,6 +17,7 @@ export type ShoppingList = {
   id: Scalars['ID'];
   name: Scalars['String'];
   items: Array<Maybe<ShoppingListItem>>;
+  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -211,6 +212,7 @@ export type ShoppingListResolvers<ContextType = Context, ParentType extends Reso
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   items?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
