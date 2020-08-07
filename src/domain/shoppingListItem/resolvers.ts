@@ -1,8 +1,15 @@
-import { QueryResolvers, MutationResolvers } from "@generated/types";
+import {
+  QueryResolvers,
+  MutationResolvers,
+  ShoppingListItemStatus,
+} from "@generated/types";
 
 const Query: QueryResolvers = {
-  shoppingListItems: (_, { listId }, { shoppingListItemHandlers }) => {
-    return shoppingListItemHandlers.getAll(listId);
+  shoppingListItems: (_, { listId, status }, { shoppingListItemHandlers }) => {
+    return shoppingListItemHandlers.getAll(
+      listId,
+      status as ShoppingListItemStatus
+    );
   },
   shoppingListItem: (_, { id }, { shoppingListItemHandlers }) => {
     return shoppingListItemHandlers.get(id);

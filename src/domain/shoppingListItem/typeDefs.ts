@@ -25,7 +25,10 @@ const typeDefs = gql`
   }
 
   extend type Query {
-    shoppingListItems(listId: ID!): [ShoppingListItem]!
+    shoppingListItems(
+      listId: ID!
+      status: ShoppingListItemStatus!
+    ): [ShoppingListItem]!
     shoppingListItem(id: ID!): ShoppingListItem!
   }
 

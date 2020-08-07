@@ -24,9 +24,9 @@ const create = async (
   return document.toJSON();
 };
 
-const getAll = (listId: string) => {
+const getAll = (listId: string, status: ShoppingListItemStatus) => {
   return db.shoppingListItem
-    .find({ list: listId } as any)
+    .find({ list: listId, status } as any)
     .lean()
     .exec() as any;
 };
