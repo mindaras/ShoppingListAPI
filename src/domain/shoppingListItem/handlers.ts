@@ -18,7 +18,7 @@ const create = async (
   await db.shoppingList.updateOne(
     { _id: listId },
     {
-      $push: { items: document.id },
+      $push: { pendingItems: document.id },
     }
   );
   return document.toJSON();
@@ -35,33 +35,67 @@ const get = (id: string) => {
   return db.shoppingListItem.findById(id).lean().exec() as any;
 };
 
+const getHandled = (listId: string) => {
+  return db.shoppingListItem
+    .find({
+      list: listId,
+      status: {
+        $in: [ShoppingListItemStatus.Bought, ShoppingListItemStatus.Removed],
+      },
+    } as any)
+    .lean()
+    .exec() as any;
+};
+
 const update = async (
   id: string,
   updatedBy: string,
   { name, info, status }: ShoppingListItemInput
 ) => {
-  const document = await db.shoppingListItem.findByIdAndUpdate(
-    id,
-    {
-      name,
-      info,
-      status: status || ShoppingListItemStatus.Pending,
-      updatedBy,
-    },
-    { useFindAndModify: false, new: true }
-  );
+  const props = { updatedBy } as any;
+
+  if (name) props.name = name;
+  if (info) props.info = info;
+  if (status) props.status = status;
+
+  const document = await db.shoppingListItem.findByIdAndUpdate(id, props, {
+    useFindAndModify: false,
+    new: true,
+  });
+
+  if (status === ShoppingListItemStatus.Bought) {
+    await db.shoppingList.updateOne(
+      { _id: document?.list },
+      {
+        $pull: { pendingItems: id as any },
+      }
+    );
+  }
+
   return document?.toJSON();
 };
 
 const remove = async (id: string, listId: string) => {
-  await db.shoppingListItem.deleteOne({ _id: id });
+  await db.shoppingListItem.updateOne(
+    { _id: id },
+    {
+      status: ShoppingListItemStatus.Removed,
+    }
+  );
   await db.shoppingList.updateOne(
     { _id: listId },
     {
-      $pull: { items: id as any },
+      $pull: { pendingItems: id as any },
     }
   );
   return null;
 };
 
-export const shoppingListItemHandlers = { create, get, getAll, update, remove };
+export const shoppingListItemHandlers = {
+  create,
+  getAll,
+  get,
+  getHandled,
+  update,
+  remove,
+};

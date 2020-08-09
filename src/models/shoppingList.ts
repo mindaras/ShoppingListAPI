@@ -4,7 +4,9 @@ import { ShoppingList } from "@generated/types";
 const schema = new mongoose.Schema(
   {
     name: String,
-    items: [{ type: mongoose.Schema.Types.ObjectId, ref: "ShoppingListItem" }],
+    pendingItems: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "ShoppingListItem" },
+    ],
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

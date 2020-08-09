@@ -1,5 +1,4 @@
 import { db } from "@db";
-import { TypeMetaFieldDef } from "graphql";
 
 const create = (name: string) => db.shoppingList.create({ name } as any);
 
@@ -12,7 +11,6 @@ const remove = async (id: string) => {
     useFindAndModify: false,
   } as any);
   await db.shoppingListItem.deleteMany({ list: id } as any);
-
   return null;
 };
 

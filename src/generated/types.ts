@@ -16,15 +16,21 @@ export type ShoppingList = {
   __typename?: 'ShoppingList';
   id: Scalars['ID'];
   name: Scalars['String'];
-  items: Array<Maybe<ShoppingListItem>>;
+  pendingItems: Array<Maybe<ShoppingListItem>>;
   updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  handledShoppingListItems: Array<Maybe<ShoppingListItem>>;
   shoppingList: ShoppingList;
   shoppingListItem: ShoppingListItem;
   shoppingListItems: Array<Maybe<ShoppingListItem>>;
+};
+
+
+export type QueryHandledShoppingListItemsArgs = {
+  listId: Scalars['ID'];
 };
 
 
@@ -101,7 +107,7 @@ export type ShoppingListItem = {
 };
 
 export type ShoppingListItemInput = {
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   info?: Maybe<Scalars['String']>;
   status?: Maybe<ShoppingListItemStatus>;
 };
@@ -212,12 +218,13 @@ export type ResolversParentTypes = {
 export type ShoppingListResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ShoppingList'] = ResolversParentTypes['ShoppingList']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  items?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType>;
+  pendingItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  handledShoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryHandledShoppingListItemsArgs, 'listId'>>;
   shoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<QueryShoppingListArgs, 'id'>>;
   shoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<QueryShoppingListItemArgs, 'id'>>;
   shoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryShoppingListItemsArgs, 'listId' | 'status'>>;

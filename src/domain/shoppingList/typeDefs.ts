@@ -4,7 +4,7 @@ const typeDefs = gql`
   type ShoppingList {
     id: ID!
     name: String!
-    items: [ShoppingListItem]!
+    pendingItems: [ShoppingListItem]!
     updatedAt: String
   }
 

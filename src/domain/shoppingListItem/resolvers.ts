@@ -14,6 +14,9 @@ const Query: QueryResolvers = {
   shoppingListItem: (_, { id }, { shoppingListItemHandlers }) => {
     return shoppingListItemHandlers.get(id);
   },
+  handledShoppingListItems: (_, { listId }, { shoppingListItemHandlers }) => {
+    return shoppingListItemHandlers.getHandled(listId);
+  },
 };
 
 const Mutation: MutationResolvers = {

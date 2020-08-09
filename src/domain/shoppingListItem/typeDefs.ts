@@ -19,7 +19,7 @@ const typeDefs = gql`
   }
 
   input ShoppingListItemInput {
-    name: String!
+    name: String
     info: String
     status: ShoppingListItemStatus
   }
@@ -30,6 +30,7 @@ const typeDefs = gql`
       status: ShoppingListItemStatus!
     ): [ShoppingListItem]!
     shoppingListItem(id: ID!): ShoppingListItem!
+    handledShoppingListItems(listId: ID!): [ShoppingListItem]!
   }
 
   extend type Mutation {
