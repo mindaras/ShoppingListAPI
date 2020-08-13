@@ -23,7 +23,7 @@ const schema = new mongoose.Schema(
     },
     updatedBy: String,
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
 const ShoppingListItemModel = mongoose.model<ShoppingListItem & Document>(
