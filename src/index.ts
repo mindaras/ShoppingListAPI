@@ -4,7 +4,7 @@ import { createContext } from "./context";
 import { db } from "@db";
 import { createResources } from "./resources";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") dotenv.config();
 
 const server = new ApolloServer({
   ...createResources(),

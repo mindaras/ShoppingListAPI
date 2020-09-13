@@ -19,7 +19,8 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var context_1 = require("./context");
 var _db_1 = require("@db");
 var resources_1 = require("./resources");
-dotenv_1.default.config();
+if (process.env.NODE_ENV !== "production")
+    dotenv_1.default.config();
 var server = new apollo_server_1.ApolloServer(__assign(__assign({}, resources_1.createResources()), { context: context_1.createContext() }));
 _db_1.db.connect(process.env.DB_CONNECTION_STRING, {
     useNewUrlParser: true,
