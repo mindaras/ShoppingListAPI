@@ -46,7 +46,7 @@ export type QueryShoppingListItemArgs = {
 
 export type QueryShoppingListItemsArgs = {
   listId: Scalars['ID'];
-  status: ShoppingListItemStatus;
+  status?: Maybe<ShoppingListItemStatus>;
 };
 
 export type Mutation = {
@@ -227,7 +227,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   handledShoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryHandledShoppingListItemsArgs, 'listId'>>;
   shoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<QueryShoppingListArgs, 'id'>>;
   shoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<QueryShoppingListItemArgs, 'id'>>;
-  shoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryShoppingListItemsArgs, 'listId' | 'status'>>;
+  shoppingListItems?: Resolver<Array<Maybe<ResolversTypes['ShoppingListItem']>>, ParentType, ContextType, RequireFields<QueryShoppingListItemsArgs, 'listId'>>;
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {

@@ -25,10 +25,11 @@ const create = async (
 };
 
 const getAll = (listId: string, status: ShoppingListItemStatus) => {
-  return db.shoppingListItem
-    .find({ list: listId, status } as any)
-    .lean()
-    .exec() as any;
+  const props = { list: listId, status } as any;
+
+  if (status) props.status = status;
+
+  return db.shoppingListItem.find(props).lean().exec() as any;
 };
 
 const get = (id: string) => {
