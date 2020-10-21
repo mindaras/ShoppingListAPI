@@ -79,6 +79,7 @@ export type MutationRemoveShoppingListArgs = {
 export type MutationRemoveShoppingListItemArgs = {
   id: Scalars['ID'];
   listId: Scalars['ID'];
+  updatedBy: Scalars['String'];
 };
 
 
@@ -234,7 +235,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createShoppingList?: Resolver<ResolversTypes['ShoppingList'], ParentType, ContextType, RequireFields<MutationCreateShoppingListArgs, 'name'>>;
   createShoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<MutationCreateShoppingListItemArgs, 'listId' | 'author' | 'input'>>;
   removeShoppingList?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationRemoveShoppingListArgs, 'id'>>;
-  removeShoppingListItem?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationRemoveShoppingListItemArgs, 'id' | 'listId'>>;
+  removeShoppingListItem?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationRemoveShoppingListItemArgs, 'id' | 'listId' | 'updatedBy'>>;
   updateShoppingListItem?: Resolver<ResolversTypes['ShoppingListItem'], ParentType, ContextType, RequireFields<MutationUpdateShoppingListItemArgs, 'id' | 'updatedBy' | 'input'>>;
 };
 

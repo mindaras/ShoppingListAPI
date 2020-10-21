@@ -44,7 +44,7 @@ const typeDefs = gql`
       updatedBy: String!
       input: ShoppingListItemInput!
     ): ShoppingListItem!
-    removeShoppingListItem(id: ID!, listId: ID!): Int
+    removeShoppingListItem(id: ID!, listId: ID! updatedBy: String!): Int
   }
 `;
 

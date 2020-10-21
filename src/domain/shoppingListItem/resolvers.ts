@@ -34,8 +34,8 @@ const Mutation: MutationResolvers = {
   ) => {
     return shoppingListItemHandlers.update(id, updatedBy, input);
   },
-  removeShoppingListItem: (_, { id, listId }, { shoppingListItemHandlers }) => {
-    return shoppingListItemHandlers.remove(id, listId);
+  removeShoppingListItem: (_, { id, listId, updatedBy }, { shoppingListItemHandlers }) => {
+    return shoppingListItemHandlers.remove(id, listId, updatedBy);
   },
 };
 

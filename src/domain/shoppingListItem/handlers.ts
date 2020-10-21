@@ -76,10 +76,11 @@ const update = async (
   return document?.toJSON();
 };
 
-const remove = async (id: string, listId: string) => {
+const remove = async (id: string, listId: string, updatedBy: string) => {
   await db.shoppingListItem.updateOne(
     { _id: id },
     {
+      updatedBy,
       status: ShoppingListItemStatus.Removed,
     }
   );
