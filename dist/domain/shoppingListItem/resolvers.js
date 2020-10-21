@@ -30,9 +30,9 @@ var Mutation = {
         return shoppingListItemHandlers.update(id, updatedBy, input);
     },
     removeShoppingListItem: function (_, _a, _b) {
-        var id = _a.id, listId = _a.listId;
+        var id = _a.id, listId = _a.listId, updatedBy = _a.updatedBy;
         var shoppingListItemHandlers = _b.shoppingListItemHandlers;
-        return shoppingListItemHandlers.remove(id, listId);
+        return shoppingListItemHandlers.remove(id, listId, updatedBy);
     },
 };
 var ShoppingListItem = {

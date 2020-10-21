@@ -64,10 +64,10 @@ var create = function (listId, author, _a) {
     });
 };
 var getAll = function (listId, status) {
-    return _db_1.db.shoppingListItem
-        .find({ list: listId, status: status })
-        .lean()
-        .exec();
+    var props = { list: listId, status: status };
+    if (status)
+        props.status = status;
+    return _db_1.db.shoppingListItem.find(props).lean().exec();
 };
 var get = function (id) {
     return _db_1.db.shoppingListItem.findById(id).lean().exec();
@@ -115,10 +115,11 @@ var update = function (id, updatedBy, _a) {
         });
     });
 };
-var remove = function (id, listId) { return __awaiter(void 0, void 0, void 0, function () {
+var remove = function (id, listId, updatedBy) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, _db_1.db.shoppingListItem.updateOne({ _id: id }, {
+                    updatedBy: updatedBy,
                     status: types_1.ShoppingListItemStatus.Removed,
                 })];
             case 1:
