@@ -13,6 +13,9 @@ const Mutation: MutationResolvers = {
   removeShoppingList: (_, { id }, { shoppingListHandlers }) => {
     return shoppingListHandlers.remove(id);
   },
+  removeOutdatedShoppingLists: (_, {timestamp}, {shoppingListHandlers}) => {
+    return shoppingListHandlers.removeOutdated(timestamp)
+  }
 };
 
 const ShoppingList = {

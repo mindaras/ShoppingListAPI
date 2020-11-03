@@ -15,6 +15,7 @@ const typeDefs = gql`
   extend type Mutation {
     createShoppingList(name: String!): ShoppingList!
     removeShoppingList(id: ID!): Int
+    removeOutdatedShoppingLists(timestamp: String!): Int
   }
 `;
 

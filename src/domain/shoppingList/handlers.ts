@@ -14,4 +14,19 @@ const remove = async (id: string) => {
   return null;
 };
 
-export const shoppingListHandlers = { create, get, remove };
+const removeOutdated = async (timestamp: string) => {
+  const lists = await db.shoppingList
+    .find({ updatedAt: { $lte: timestamp } })
+    .lean()
+    .exec();
+
+  await db.shoppingListItem.deleteMany({
+    list: { $in: lists as any },
+  });
+
+  await db.shoppingList.deleteMany({ updatedAt: { $lte: timestamp } });
+
+  return null;
+};
+
+export const shoppingListHandlers = { create, get, remove, removeOutdated };
