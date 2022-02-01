@@ -1,5 +1,7 @@
 Shopping list application backend.
 
+Client: https://github.com/mindaras/ShoppingListAPI
+
 To start MongoDB server locally:
 
 start command:
